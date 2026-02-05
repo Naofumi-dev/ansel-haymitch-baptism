@@ -242,12 +242,15 @@ export default function RSVPForm() {
                   onChange={handleChange}
                   className="input-modern cursor-pointer"
                 >
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
+                  {[1, 2, 3, 4, 5].map(num => (
                     <option key={num} value={num} className="bg-brand-dark">
                       {num} {num === 1 ? 'tribute' : 'tributes'}
                     </option>
                   ))}
                 </select>
+                <p className="mt-2 text-white/40 text-xs">
+                  * Limited to 50 guests only
+                </p>
               </motion.div>
 
               {/* Message */}
