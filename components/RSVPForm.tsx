@@ -50,11 +50,26 @@ export default function RSVPForm() {
     setIsSubmitting(true)
     
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500))
-      console.log('RSVP submitted:', formData)
-      setIsSubmitted(true)
+      // Send to API route which handles Google Sheets + Email
+      const response = await fetch('/api/rsvp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formData,
+          timestamp: new Date().toISOString()
+        })
+      })
+      
+      const result = await response.json()
+      
+      if (result.success) {
+        setIsSubmitted(true)
+      } else {
+        alert('Something went wrong. Please try again.')
+      }
     } catch (error) {
       console.error('Submission error:', error)
+      alert('Failed to submit. Please check your connection.')
     } finally {
       setIsSubmitting(false)
     }

@@ -6,6 +6,7 @@ interface RSVPData {
   guests: string
   attending: string
   message?: string
+  timestamp?: string
 }
 
 function validateRSVP(data: RSVPData): { valid: boolean; errors: string[] } {
@@ -25,10 +26,33 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, errors: validation.errors }, { status: 400 })
     }
 
-    // Log RSVP - in production, connect to database or external service
+    // Google Sheets Integration via Google Apps Script Web App
+    const GOOGLE_SCRIPT_URL = process.env.GOOGLE_SCRIPT_URL
+    
+    if (GOOGLE_SCRIPT_URL) {
+      try {
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: body.name,
+            email: body.email,
+            guests: body.guests,
+            attending: body.attending,
+            message: body.message || '',
+            timestamp: body.timestamp || new Date().toISOString()
+          })
+        })
+      } catch (sheetError) {
+        console.error('Google Sheets error:', sheetError)
+        // Continue even if sheets fails - don't block the user
+      }
+    }
+
+    // Log RSVP for backup
     console.log('RSVP received:', {
       ...body,
-      timestamp: new Date().toISOString()
+      timestamp: body.timestamp || new Date().toISOString()
     })
 
     return NextResponse.json({
