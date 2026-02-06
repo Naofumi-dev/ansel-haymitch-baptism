@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FireIcon, BirdIcon } from './Icons3D'
+import { HeartIcon, DoveIcon } from './Icons3D'
 
 interface FormData {
   name: string
@@ -10,12 +10,6 @@ interface FormData {
   guests: string
   attending: string
   message: string
-}
-
-interface FormErrors {
-  name?: string
-  email?: string
-  attending?: string
 }
 
 export default function RSVPForm() {
@@ -26,19 +20,21 @@ export default function RSVPForm() {
     attending: '',
     message: ''
   })
-  const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [errors, setErrors] = useState<Partial<FormData>>({})
 
   const validateForm = (): boolean => {
-    const newErrors: FormErrors = {}
-    if (!formData.name.trim()) newErrors.name = 'Please enter your name'
+    const newErrors: Partial<FormData> = {}
+    
+    if (!formData.name.trim()) newErrors.name = 'Please tell me your name!'
     if (!formData.email.trim()) {
-      newErrors.email = 'Please enter your email'
+      newErrors.email = 'I need your email to send updates!'
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email'
+      newErrors.email = 'Hmm, that email looks funny...'
     }
-    if (!formData.attending) newErrors.attending = 'Please let us know if you can attend'
+    if (!formData.attending) newErrors.attending = 'Will you come? Please let me know!'
+    
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
@@ -50,7 +46,6 @@ export default function RSVPForm() {
     setIsSubmitting(true)
     
     try {
-      // Send to API route which handles Google Sheets + Email
       const response = await fetch('/api/rsvp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -78,252 +73,246 @@ export default function RSVPForm() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
-    if (errors[name as keyof FormErrors]) {
+    if (errors[name as keyof FormData]) {
       setErrors(prev => ({ ...prev, [name]: undefined }))
     }
   }
 
-  return (
-    <div className="relative py-24 sm:py-32 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-brand-dark via-[#0a0f1a] to-brand-dark" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-driver-red/10 rounded-full blur-[150px]" />
+  if (isSubmitted) {
+    return (
+      <section id="rsvp" className="relative py-20 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-brand-dark via-brand-medium to-brand-dark" />
+        
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="relative z-10 max-w-lg mx-auto px-4 text-center"
+        >
+          <div className="glass-card-light p-10">
+            <DoveIcon className="w-20 h-20 mx-auto mb-6" />
+            <h3 className="font-script text-4xl text-earth-brown mb-4">
+              Yay! Thank You!
+            </h3>
+            <p className="font-body text-brand-dark/80 text-lg mb-6">
+              I&apos;m so happy you&apos;re coming! Mommy and Daddy will send you more details soon. Can&apos;t wait to see you!
+            </p>
+            <HeartIcon className="w-12 h-12 mx-auto" />
+            <motion.button
+              onClick={() => {
+                setIsSubmitted(false)
+                setFormData({ name: '', email: '', guests: '1', attending: '', message: '' })
+              }}
+              className="mt-6 text-earth-gold hover:text-earth-brown transition-colors font-body"
+            >
+              Submit another response →
+            </motion.button>
+          </div>
+        </motion.div>
+      </section>
+    )
+  }
 
-      <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+  return (
+    <section id="rsvp" className="relative py-20 overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-brand-dark via-brand-medium to-brand-dark" />
+      
+      {/* Ambient glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-earth-gold/5 rounded-full blur-[100px]" />
+
+      <div className="relative z-10 max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-10"
         >
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="h-px w-12 bg-gradient-to-r from-transparent to-games-fire" />
-            <FireIcon className="w-8 h-8" />
-            <div className="h-px w-12 bg-gradient-to-l from-transparent to-games-fire" />
-          </div>
-          <h2 className="font-display text-4xl sm:text-5xl font-bold text-white mb-4">
-            Join the Alliance
+          <HeartIcon className="w-14 h-14 mx-auto mb-4" />
+          <h2 className="font-script text-4xl sm:text-5xl text-gradient-gold mb-4">
+            Will You Come?
           </h2>
-          <p className="font-body text-lg text-white/60">
-            Volunteer as tribute for Ansel&apos;s special day
+          <p className="font-body text-earth-cream/70 text-lg">
+            &ldquo;Please tell me if you can make it! I&apos;ll be counting the days!&rdquo;
           </p>
         </motion.div>
 
-        <AnimatePresence mode="wait">
-          {isSubmitted ? (
-            <motion.div
-              key="success"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="text-center py-16"
-            >
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 0.2, type: 'spring' }}
-                className="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br from-games-forest to-games-gold flex items-center justify-center"
-              >
-                <BirdIcon className="w-12 h-12" animate={false} />
-              </motion.div>
-              <h3 className="font-display text-3xl font-bold text-white mb-4">
-                Tribute Registered!
-              </h3>
-              <p className="font-body text-white/60 mb-8">
-                May the odds be ever in your favor. We&apos;ll send you a confirmation soon!
-              </p>
-              <motion.button
-                onClick={() => {
-                  setIsSubmitted(false)
-                  setFormData({ name: '', email: '', guests: '1', attending: '', message: '' })
-                }}
-                className="text-games-fire hover:text-games-gold transition-colors font-body"
-                whileHover={{ scale: 1.05 }}
-              >
-                Submit another response →
-              </motion.button>
-            </motion.div>
-          ) : (
-            <motion.form
-              key="form"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              onSubmit={handleSubmit}
-              className="space-y-6"
-            >
-              {/* Attending selection */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="glass-card p-6"
-              >
-                <label className="block font-display text-lg text-white mb-4">
-                  Will you be joining the celebration?
-                </label>
-                <div className="grid grid-cols-3 gap-3">
-                  {[
-                    { value: 'yes', label: 'I volunteer!', icon: '🙋' },
-                    { value: 'no', label: "Can't make it", icon: '😢' },
-                    { value: 'maybe', label: 'Not sure yet', icon: '🤔' },
-                  ].map((option) => (
-                    <label key={option.value} className="cursor-pointer">
-                      <input
-                        type="radio"
-                        name="attending"
-                        value={option.value}
-                        checked={formData.attending === option.value}
-                        onChange={handleChange}
-                        className="sr-only"
-                      />
-                      <motion.div
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className={`p-4 rounded-xl text-center transition-all ${
-                          formData.attending === option.value
-                            ? 'bg-gradient-to-br from-driver-red to-games-fire text-white ring-2 ring-games-gold'
-                            : 'bg-white/5 text-white/70 hover:bg-white/10'
-                        }`}
-                      >
-                        <span className="text-2xl block mb-1">{option.icon}</span>
-                        <span className="font-body text-sm">{option.label}</span>
-                      </motion.div>
-                    </label>
-                  ))}
-                </div>
-                {errors.attending && (
-                  <p className="mt-2 text-driver-red text-sm">{errors.attending}</p>
-                )}
-              </motion.div>
-
-              {/* Name and Email */}
-              <div className="grid sm:grid-cols-2 gap-6">
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 }}
+        {/* Form */}
+        <motion.form
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          onSubmit={handleSubmit}
+          className="glass-card p-8 sm:p-10"
+        >
+          {/* Name field */}
+          <div className="mb-6">
+            <label className="block font-body text-earth-cream mb-2 text-sm">
+              What&apos;s your name? ✨
+            </label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Your full name"
+              className="input-field"
+            />
+            <AnimatePresence>
+              {errors.name && (
+                <motion.p
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  className="mt-2 text-sm text-red-400 font-body"
                 >
-                  <label className="block font-display text-sm text-white/70 mb-2 uppercase tracking-wider">
-                    Your Name *
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Katniss Everdeen"
-                    className={`input-modern ${errors.name ? 'border-driver-red' : ''}`}
-                  />
-                  {errors.name && (
-                    <p className="mt-1 text-driver-red text-sm">{errors.name}</p>
-                  )}
-                </motion.div>
+                  {errors.name}
+                </motion.p>
+              )}
+            </AnimatePresence>
+          </div>
 
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 }}
+          {/* Email field */}
+          <div className="mb-6">
+            <label className="block font-body text-earth-cream mb-2 text-sm">
+              Your email address 📧
+            </label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="you@email.com"
+              className="input-field"
+            />
+            <AnimatePresence>
+              {errors.email && (
+                <motion.p
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  className="mt-2 text-sm text-red-400 font-body"
                 >
-                  <label className="block font-display text-sm text-white/70 mb-2 uppercase tracking-wider">
-                    Email Address *
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="tribute@district12.com"
-                    className={`input-modern ${errors.email ? 'border-driver-red' : ''}`}
-                  />
-                  {errors.email && (
-                    <p className="mt-1 text-driver-red text-sm">{errors.email}</p>
-                  )}
-                </motion.div>
-              </div>
+                  {errors.email}
+                </motion.p>
+              )}
+            </AnimatePresence>
+          </div>
 
-              {/* Number of guests */}
+          {/* Attendance buttons */}
+          <div className="mb-6">
+            <label className="block font-body text-earth-cream mb-3 text-sm">
+              So... are you coming? 🥺
+            </label>
+            <div className="flex gap-3 flex-wrap">
+              {[
+                { value: 'yes', label: 'Yes, I\'ll be there!', emoji: '🎉' },
+                { value: 'maybe', label: 'Maybe...', emoji: '🤔' },
+                { value: 'no', label: 'Sorry, I can\'t', emoji: '😢' },
+              ].map((option) => (
+                <motion.button
+                  key={option.value}
+                  type="button"
+                  onClick={() => {
+                    setFormData(prev => ({ ...prev, attending: option.value }))
+                    if (errors.attending) setErrors(prev => ({ ...prev, attending: undefined }))
+                  }}
+                  className={`flex-1 min-w-[120px] py-3 px-4 rounded-xl font-body text-sm transition-all ${
+                    formData.attending === option.value
+                      ? 'bg-gradient-gold text-brand-dark shadow-lg'
+                      : 'bg-earth-brown/30 text-earth-cream hover:bg-earth-brown/50 border border-earth-gold/20'
+                  }`}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <span className="mr-2">{option.emoji}</span>
+                  {option.label}
+                </motion.button>
+              ))}
+            </div>
+            <AnimatePresence>
+              {errors.attending && (
+                <motion.p
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  className="mt-2 text-sm text-red-400 font-body"
+                >
+                  {errors.attending}
+                </motion.p>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* Number of guests */}
+          <AnimatePresence>
+            {formData.attending === 'yes' && (
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="mb-6"
               >
-                <label className="block font-display text-sm text-white/70 mb-2 uppercase tracking-wider">
-                  Number of Tributes (Including You)
+                <label className="block font-body text-earth-cream mb-2 text-sm">
+                  How many of you are coming? 👨‍👩‍👧‍👦
                 </label>
                 <select
                   name="guests"
                   value={formData.guests}
                   onChange={handleChange}
-                  className="input-modern cursor-pointer"
+                  className="input-field appearance-none cursor-pointer"
                 >
-                  {[1, 2, 3, 4, 5].map(num => (
+                  {[1, 2, 3, 4, 5, 6, 7, 8].map(num => (
                     <option key={num} value={num} className="bg-brand-dark">
-                      {num} {num === 1 ? 'tribute' : 'tributes'}
+                      {num} {num === 1 ? 'guest' : 'guests'}
                     </option>
                   ))}
                 </select>
-                <p className="mt-2 text-white/40 text-xs">
-                  * Limited to 50 guests only
-                </p>
               </motion.div>
+            )}
+          </AnimatePresence>
 
-              {/* Message */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-              >
-                <label className="block font-display text-sm text-white/70 mb-2 uppercase tracking-wider">
-                  Message for Ansel
-                </label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  placeholder="Share your wishes, song requests, or anything else!"
-                  rows={4}
-                  className="input-modern resize-none"
+          {/* Message field */}
+          <div className="mb-8">
+            <label className="block font-body text-earth-cream mb-2 text-sm">
+              Any message for me? 💌 (optional)
+            </label>
+            <textarea
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              placeholder="Write something sweet..."
+              rows={3}
+              className="input-field resize-none"
+            />
+          </div>
+
+          {/* Submit button */}
+          <motion.button
+            type="submit"
+            disabled={isSubmitting}
+            className="btn-primary w-full text-lg flex items-center justify-center gap-2"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            {isSubmitting ? (
+              <>
+                <motion.div
+                  className="w-5 h-5 border-2 border-brand-dark/30 border-t-brand-dark rounded-full"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
                 />
-              </motion.div>
-
-              {/* Submit button */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4 }}
-                className="pt-4"
-              >
-                <motion.button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full btn-modern text-white disabled:opacity-50 disabled:cursor-not-allowed"
-                  whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
-                  whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
-                >
-                  {isSubmitting ? (
-                    <span className="flex items-center justify-center gap-2">
-                      <motion.span
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-                        className="inline-block w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
-                      />
-                      Processing...
-                    </span>
-                  ) : (
-                    <span className="flex items-center justify-center gap-2">
-                      <BirdIcon className="w-5 h-5" animate={false} />
-                      Submit RSVP
-                    </span>
-                  )}
-                </motion.button>
-              </motion.div>
-            </motion.form>
-          )}
-        </AnimatePresence>
+                Sending...
+              </>
+            ) : (
+              <>
+                Send My RSVP
+                <span>💛</span>
+              </>
+            )}
+          </motion.button>
+        </motion.form>
       </div>
-    </div>
+    </section>
   )
 }

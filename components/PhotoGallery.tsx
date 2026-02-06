@@ -3,338 +3,143 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
-import { CarIcon, BirdIcon } from './Icons3D'
+import { BabyIcon } from './Icons3D'
 
-// Gallery images with Ansel's actual photos
-const GALLERY_IMAGES = [
-  {
-    id: 1,
-    src: '/images/ansel17.jpg',
-    alt: 'Newborn Ansel welcome photo',
-    caption: 'Welcome Baby Ansel - July 11, 2024 ✨',
-  },
-  {
-    id: 2,
-    src: '/images/ansel16.jpg',
-    alt: 'Newborn Ansel sleeping',
-    caption: 'The tribute has arrived - Day 1',
-  },
-  {
-    id: 3,
-    src: '/images/ansel5.jpg',
-    alt: 'Ansel laughing',
-    caption: 'Pure joy - our little tribute winning hearts',
-  },
-  {
-    id: 4,
-    src: '/images/ansel6.jpg',
-    alt: 'Ansel looking curious',
-    caption: 'Surveying the arena like a true victor',
-  },
-  {
-    id: 5,
-    src: '/images/ansel18.jpg',
-    alt: 'Ansel in Sully costume',
-    caption: 'In disguise - undercover tribute mode',
-  },
-  {
-    id: 6,
-    src: '/images/ansel8.jpg',
-    alt: 'Ansel with kuya',
-    caption: 'Alliance formed - brothers in arms',
-  },
-  {
-    id: 7,
-    src: '/images/ansel10.jpg',
-    alt: 'Baby Ansel smiling in red',
-    caption: 'Racing red - ready to hit the road',
-  },
-  {
-    id: 8,
-    src: '/images/ansel11.jpg',
-    alt: 'Ansel happy in red shirt',
-    caption: 'Gearing up in his getaway outfit',
-  },
-  {
-    id: 9,
-    src: '/images/ansel12.jpg',
-    alt: 'Ansel big smile',
-    caption: 'That winning smile - a true champion',
-  },
-  {
-    id: 10,
-    src: '/images/ansel13.jpg',
-    alt: 'Ansel laughing joyfully',
-    caption: 'May the odds be ever in his favor!',
-  },
-  {
-    id: 11,
-    src: '/images/ansel19.jpg',
-    alt: 'Ansel at ball pit',
-    caption: 'Training in the arena - ball pit edition',
-  },
-  {
-    id: 12,
-    src: '/images/ansel20.jpg',
-    alt: 'Ansel smiling at ball pit',
-    caption: 'Victory lap in the play zone!',
-  },
-  {
-    id: 13,
-    src: '/images/ansel14.jpg',
-    alt: 'Ansel peeking through crib',
-    caption: 'Escape artist in training',
-  },
-  {
-    id: 14,
-    src: '/images/ansel15.jpg',
-    alt: 'Ansel portrait',
-    caption: 'The mockingjay of our hearts',
-  },
-  {
-    id: 15,
-    src: '/images/ansel7.jpg',
-    alt: 'Ansel thinking',
-    caption: 'Deep in thought, planning his next move',
-  },
-  {
-    id: 16,
-    src: '/images/ansel9.jpg',
-    alt: 'Ansel with kuya looking at camera',
-    caption: 'The tribute and his protector',
-  },
-  {
-    id: 17,
-    src: '/images/ansel1.jpg',
-    alt: 'Ansel photo 1',
-    caption: 'Our little tribute ready for adventure',
-  },
-  {
-    id: 18,
-    src: '/images/ansel2.jpg',
-    alt: 'Ansel photo 2',
-    caption: 'Curious eyes exploring the world',
-  },
-  {
-    id: 19,
-    src: '/images/ansel3.jpg',
-    alt: 'Ansel photo 3',
-    caption: 'Cool and confident like Baby Driver',
-  },
-  {
-    id: 20,
-    src: '/images/ansel4.jpg',
-    alt: 'Ansel photo 4',
-    caption: 'Growing stronger every day',
-  },
+const photos = [
+  { src: '/images/ansel1.jpg', caption: 'My first smile!' },
+  { src: '/images/ansel2.jpg', caption: 'Naptime is the best' },
+  { src: '/images/ansel3.jpg', caption: 'Just chilling' },
+  { src: '/images/ansel4.jpg', caption: 'With my favorite toy' },
+  { src: '/images/ansel5.jpg', caption: 'Happy baby!' },
+  { src: '/images/ansel6.jpg', caption: 'Exploring the world' },
+  { src: '/images/ansel7.jpg', caption: 'Cozy moments' },
+  { src: '/images/ansel8.jpg', caption: 'Bath time fun' },
+  { src: '/images/ansel9.jpg', caption: 'Sleepy head' },
+  { src: '/images/ansel10.jpg', caption: 'Growing so fast!' },
+  { src: '/images/ansel11.jpg', caption: 'Curious little one' },
+  { src: '/images/ansel12.jpg', caption: 'Sweet dreams' },
 ]
 
 export default function PhotoGallery() {
-  const [selectedImage, setSelectedImage] = useState<typeof GALLERY_IMAGES[0] | null>(null)
-  const [currentIndex, setCurrentIndex] = useState(0)
-
-  const openLightbox = (image: typeof GALLERY_IMAGES[0], index: number) => {
-    setSelectedImage(image)
-    setCurrentIndex(index)
-  }
-
-  const closeLightbox = () => setSelectedImage(null)
-
-  const goToNext = () => {
-    const nextIndex = (currentIndex + 1) % GALLERY_IMAGES.length
-    setCurrentIndex(nextIndex)
-    setSelectedImage(GALLERY_IMAGES[nextIndex])
-  }
-
-  const goToPrev = () => {
-    const prevIndex = (currentIndex - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length
-    setCurrentIndex(prevIndex)
-    setSelectedImage(GALLERY_IMAGES[prevIndex])
-  }
+  const [selectedPhoto, setSelectedPhoto] = useState<number | null>(null)
 
   return (
-    <div className="relative py-24 sm:py-32 overflow-hidden">
+    <section id="gallery" className="relative py-20 overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-brand-dark via-brand-dark to-[#0a0f1a]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-brand-dark via-brand-medium to-brand-dark" />
       
-      {/* Decorative elements */}
-      <div className="absolute top-20 right-20 opacity-10">
-        <CarIcon className="w-40 h-40" animate={false} />
-      </div>
-      <div className="absolute bottom-20 left-20 opacity-10">
-        <BirdIcon className="w-32 h-32" animate={false} />
-      </div>
-
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="h-px w-12 bg-gradient-to-r from-transparent to-games-gold" />
-            <CarIcon className="w-8 h-8" />
-            <div className="h-px w-12 bg-gradient-to-l from-transparent to-games-gold" />
-          </div>
-          <h2 className="font-display text-4xl sm:text-5xl font-bold text-white mb-4">
-            The Documentary
+          <BabyIcon className="w-16 h-16 mx-auto mb-4" />
+          <h2 className="font-script text-4xl sm:text-5xl text-gradient-gold mb-4">
+            My Little Moments
           </h2>
-          <p className="font-body text-lg text-white/60">
-            Behind the scenes of our little tribute&apos;s journey
+          <p className="font-body text-earth-cream/70 text-lg max-w-2xl mx-auto">
+            &ldquo;Mommy takes so many photos of me! Here are some of my favorites.&rdquo;
           </p>
         </motion.div>
 
         {/* Photo grid */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4"
-        >
-          {GALLERY_IMAGES.map((image, index) => (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {photos.map((photo, index) => (
             <motion.div
-              key={image.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              key={index}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
+              transition={{ duration: 0.4, delay: index * 0.05 }}
               className="relative group cursor-pointer"
-              onClick={() => openLightbox(image, index)}
+              onClick={() => setSelectedPhoto(index)}
             >
-              <div className="aspect-square overflow-hidden rounded-2xl bg-white/5">
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.4 }}
-                  className="w-full h-full relative"
-                >
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 50vw, 25vw"
-                  />
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                    <p className="font-body text-white text-sm">{image.caption}</p>
-                  </div>
-                </motion.div>
+              <div className="aspect-square overflow-hidden rounded-2xl border-2 border-earth-gold/20 transition-all duration-300 group-hover:border-earth-gold/60 group-hover:shadow-lg group-hover:shadow-earth-gold/20">
+                <Image
+                  src={photo.src}
+                  alt={photo.caption}
+                  width={400}
+                  height={400}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                {/* Hover overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                  <p className="font-body text-earth-cream text-sm">{photo.caption}</p>
+                </div>
               </div>
-              {/* Glow effect on hover */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-driver-red/20 to-games-fire/20 opacity-0 group-hover:opacity-100 blur-xl transition-opacity -z-10" />
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
-        {/* Additional note */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-center mt-12"
-        >
-          <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 border border-white/10">
-            <span className="text-2xl">📷</span>
-            <p className="font-body text-sm text-white/60">
-              More photos coming after the celebration!
-            </p>
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Lightbox Modal */}
-      <AnimatePresence>
-        {selectedImage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-sm"
-            onClick={closeLightbox}
-          >
-            {/* Close button */}
-            <button
-              onClick={closeLightbox}
-              className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors z-10"
-              aria-label="Close lightbox"
-            >
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-
-            {/* Navigation arrows */}
-            <button
-              onClick={(e) => { e.stopPropagation(); goToPrev(); }}
-              className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors z-10"
-              aria-label="Previous image"
-            >
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            <button
-              onClick={(e) => { e.stopPropagation(); goToNext(); }}
-              className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors z-10"
-              aria-label="Next image"
-            >
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-
-            {/* Image container */}
+        {/* Lightbox */}
+        <AnimatePresence>
+          {selectedPhoto !== null && (
             <motion.div
-              key={selectedImage.id}
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="relative max-w-4xl w-full max-h-[80vh]"
-              onClick={(e) => e.stopPropagation()}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 bg-brand-dark/95 flex items-center justify-center p-4"
+              onClick={() => setSelectedPhoto(null)}
             >
-              <div className="relative aspect-square sm:aspect-auto sm:h-[70vh] rounded-2xl overflow-hidden">
+              <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
+                className="relative max-w-4xl max-h-[90vh]"
+                onClick={(e) => e.stopPropagation()}
+              >
                 <Image
-                  src={selectedImage.src}
-                  alt={selectedImage.alt}
-                  fill
-                  className="object-contain"
-                  sizes="(max-width: 768px) 100vw, 80vw"
-                  priority
+                  src={photos[selectedPhoto].src}
+                  alt={photos[selectedPhoto].caption}
+                  width={1200}
+                  height={1200}
+                  className="max-h-[80vh] w-auto rounded-2xl border-4 border-earth-gold/30 object-contain"
                 />
-              </div>
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 to-transparent rounded-b-2xl">
-                <p className="font-body text-white text-lg">{selectedImage.caption}</p>
-                <p className="font-body text-white/50 text-sm mt-1">
-                  {currentIndex + 1} / {GALLERY_IMAGES.length}
+                <p className="text-center font-body text-earth-cream mt-4 text-lg">
+                  {photos[selectedPhoto].caption}
                 </p>
-              </div>
-            </motion.div>
-
-            {/* Thumbnail strip */}
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
-              {GALLERY_IMAGES.map((img, idx) => (
+                
+                {/* Navigation arrows */}
                 <button
-                  key={img.id}
-                  onClick={(e) => { e.stopPropagation(); openLightbox(img, idx); }}
-                  className={`w-16 h-16 rounded-lg overflow-hidden transition-all ${
-                    idx === currentIndex ? 'ring-2 ring-games-fire scale-110' : 'opacity-50 hover:opacity-100'
-                  }`}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setSelectedPhoto(prev => prev !== null ? (prev - 1 + photos.length) % photos.length : null)
+                  }}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 p-3 rounded-full bg-earth-gold/20 hover:bg-earth-gold/40 transition-colors"
                 >
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    width={64}
-                    height={64}
-                    className="object-cover w-full h-full"
-                  />
+                  <svg className="w-6 h-6 text-earth-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
                 </button>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setSelectedPhoto(prev => prev !== null ? (prev + 1) % photos.length : null)
+                  }}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 p-3 rounded-full bg-earth-gold/20 hover:bg-earth-gold/40 transition-colors"
+                >
+                  <svg className="w-6 h-6 text-earth-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+                
+                {/* Close button */}
+                <button
+                  onClick={() => setSelectedPhoto(null)}
+                  className="absolute top-0 right-0 translate-x-4 -translate-y-4 p-2 rounded-full bg-earth-gold/20 hover:bg-earth-gold/40 transition-colors"
+                >
+                  <svg className="w-6 h-6 text-earth-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </section>
   )
 }

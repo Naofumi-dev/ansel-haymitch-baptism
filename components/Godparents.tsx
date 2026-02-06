@@ -1,127 +1,85 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { BirdIcon } from './Icons3D'
+import { CrossIcon, HeartIcon } from './Icons3D'
 
-const GODPARENTS = {
-  ninangs: ['Jeng', 'Jersey', 'Rica', 'Ria', 'Dee', 'Dennise', 'Angelica', 'Mariz', 'Dessa', 'Sheine'],
-  ninongs: ['Jared', 'Justin', 'Royhette', 'Renzo', 'Jedel', 'Jun', 'Karl', 'Jayson', 'Rupert'],
-}
+const godparents = [
+  { name: 'Ninong Name', role: 'Godfather', relation: 'Uncle' },
+  { name: 'Ninang Name', role: 'Godmother', relation: 'Auntie' },
+  { name: 'Ninong Name', role: 'Godfather', relation: 'Family Friend' },
+  { name: 'Ninang Name', role: 'Godmother', relation: 'Cousin' },
+]
 
 export default function Godparents() {
   return (
-    <div className="relative py-24 sm:py-32 overflow-hidden">
+    <section id="godparents" className="relative py-20 overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-brand-dark via-[#0a0f1a] to-brand-dark" />
+      <div className="absolute inset-0 bg-gradient-to-b from-brand-medium to-brand-dark" />
       
-      {/* Ambient glow */}
-      <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-games-gold/5 rounded-full blur-[150px]" />
-      <div className="absolute top-1/2 right-1/4 translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-driver-red/5 rounded-full blur-[150px]" />
-
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="h-px w-12 bg-gradient-to-r from-transparent to-games-gold" />
-            <BirdIcon className="w-8 h-8" />
-            <div className="h-px w-12 bg-gradient-to-l from-transparent to-games-gold" />
-          </div>
-          <h2 className="font-display text-4xl sm:text-5xl font-bold text-white mb-4">
-            The Godparents
+          <CrossIcon className="w-14 h-14 mx-auto mb-4" />
+          <h2 className="font-script text-4xl sm:text-5xl text-gradient-gold mb-4">
+            My Ninongs & Ninangs
           </h2>
-          <p className="font-body text-lg text-white/60">
-            Ansel&apos;s guides and protectors in faith
+          <p className="font-body text-earth-cream/70 text-lg max-w-xl mx-auto">
+            &ldquo;These special people will guide me in my faith journey. I&apos;m so blessed to have them!&rdquo;
           </p>
         </motion.div>
 
         {/* Godparents grid */}
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Ninangs */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="glass-card p-8"
-          >
-            <div className="text-center mb-6">
-              <span className="text-3xl mb-2 block">👩</span>
-              <h3 className="font-display text-2xl font-bold text-games-gold">
-                Ninang&apos;s
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {godparents.map((person, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ y: -5 }}
+              className="glass-card p-6 text-center"
+            >
+              {/* Avatar placeholder */}
+              <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-earth-sand to-earth-caramel flex items-center justify-center">
+                <span className="font-display text-2xl text-brand-dark">
+                  {person.name.split(' ').map(n => n[0]).join('')}
+                </span>
+              </div>
+              
+              <h3 className="font-display text-lg text-earth-cream mb-1">
+                {person.name}
               </h3>
-              <p className="font-body text-sm text-white/50">Godmothers</p>
-            </div>
-            <ul className="space-y-3">
-              {GODPARENTS.ninangs.map((name, index) => (
-                <motion.li
-                  key={name}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
-                  className="flex items-center gap-3 group"
-                >
-                  <span className="w-2 h-2 rounded-full bg-games-gold/50 group-hover:bg-games-gold transition-colors" />
-                  <span className="font-body text-white/80 group-hover:text-white transition-colors">
-                    {name}
-                  </span>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Ninongs */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="glass-card p-8"
-          >
-            <div className="text-center mb-6">
-              <span className="text-3xl mb-2 block">👨</span>
-              <h3 className="font-display text-2xl font-bold text-driver-red">
-                Ninong&apos;s
-              </h3>
-              <p className="font-body text-sm text-white/50">Godfathers</p>
-            </div>
-            <ul className="space-y-3">
-              {GODPARENTS.ninongs.map((name, index) => (
-                <motion.li
-                  key={name}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
-                  className="flex items-center gap-3 group"
-                >
-                  <span className="w-2 h-2 rounded-full bg-driver-red/50 group-hover:bg-driver-red transition-colors" />
-                  <span className="font-body text-white/80 group-hover:text-white transition-colors">
-                    {name}
-                  </span>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
+              <p className="font-body text-earth-gold text-sm mb-1">
+                {person.role}
+              </p>
+              <p className="font-body text-earth-sand/60 text-xs">
+                {person.relation}
+              </p>
+            </motion.div>
+          ))}
         </div>
 
-        {/* Decorative bottom */}
+        {/* Message from Ansel */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex justify-center mt-12"
+          transition={{ delay: 0.5 }}
+          className="mt-12 text-center"
         >
-          <div className="flex items-center gap-2">
-            <div className="h-px w-16 bg-gradient-to-r from-transparent to-games-gold/30" />
-            <span className="text-games-gold/30">✦</span>
-            <div className="h-px w-16 bg-gradient-to-l from-transparent to-games-gold/30" />
+          <div className="inline-flex items-center gap-2 text-earth-sand/60">
+            <HeartIcon className="w-6 h-6" />
+            <span className="font-body text-sm italic">Thank you for being part of my life!</span>
+            <HeartIcon className="w-6 h-6" />
           </div>
         </motion.div>
       </div>
-    </div>
+    </section>
   )
 }
