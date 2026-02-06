@@ -9,14 +9,18 @@ const eventDetails = {
     message: "This is where I'll receive God's blessing!",
     time: "11:00 AM",
     venue: "Parish of the Immaculate Heart of Mary",
-    address: "Brgy. Muzon, San Jose Del Monte, Bulacan"
+    address: "Brgy. Muzon, San Jose Del Monte, Bulacan",
+    mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3857.3!2d121.0453!3d14.8147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397ac8f1b0f3c1d%3A0x1234567890abcdef!2sParish%20of%20the%20Immaculate%20Heart%20of%20Mary!5e0!3m2!1sen!2sph!4v1234567890",
+    mapLink: "https://maps.app.goo.gl/immaculateheartmarymuzon"
   },
   reception: {
     title: "Let's Celebrate Together!",
     message: "After the ceremony, let's have fun and feast!",
     time: "12:30 PM onwards",
-    venue: "Mendoza Residence",
-    address: "Block 5 Lot 15, Villa Belissa, San Jose Del Monte, Bulacan"
+    venue: "Vivas Residence",
+    address: "Block 5 Lot 15, Villa Belissa, San Jose Del Monte, Bulacan",
+    mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3857.3!2d121.0453!3d14.8147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397ac8f1b0f3c1d%3A0x1234567890abcdef!2sVilla%20Belissa!5e0!3m2!1sen!2sph!4v1234567890",
+    mapLink: "https://maps.app.goo.gl/villabelissa"
   }
 }
 
@@ -52,14 +56,14 @@ export default function EventDetails() {
         </motion.div>
 
         {/* Event cards */}
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Ceremony Card */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="glass-card p-8"
+            className="glass-card p-6 sm:p-8"
           >
             <div className="flex items-start gap-4 mb-6">
               <ChurchIcon className="w-14 h-14 flex-shrink-0" />
@@ -73,7 +77,7 @@ export default function EventDetails() {
               </div>
             </div>
             
-            <div className="space-y-4">
+            <div className="space-y-4 mb-6">
               <div className="flex items-center gap-4">
                 <CalendarIcon className="w-10 h-10 flex-shrink-0" animate={false} />
                 <div>
@@ -98,14 +102,28 @@ export default function EventDetails() {
               </div>
             </div>
 
+            {/* Embedded Map */}
+            <div className="rounded-xl overflow-hidden border border-earth-gold/20 mb-4">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3857.246477076!2d121.04341!3d14.81528!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397ac8f0c1a1a1a%3A0x1234567890abcdef!2sParish%20of%20the%20Immaculate%20Heart%20of%20Mary%2C%20Muzon!5e0!3m2!1sen!2sph!4v1700000000000"
+                width="100%"
+                height="200"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="grayscale hover:grayscale-0 transition-all duration-500"
+              />
+            </div>
+
             <motion.a
-              href="https://maps.google.com/?q=Parish+of+the+Immaculate+Heart+of+Mary+Muzon+San+Jose+Del+Monte+Bulacan"
+              href="https://www.google.com/maps/search/Parish+of+the+Immaculate+Heart+of+Mary+Muzon+San+Jose+Del+Monte+Bulacan"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 mt-6 text-earth-gold hover:text-earth-gold-light transition-colors font-body"
+              className="inline-flex items-center gap-2 text-earth-gold hover:text-earth-gold-light transition-colors font-body"
               whileHover={{ x: 5 }}
             >
-              <span>Get Directions</span>
+              <span>Open in Google Maps</span>
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
@@ -118,7 +136,7 @@ export default function EventDetails() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="glass-card p-8"
+            className="glass-card p-6 sm:p-8"
           >
             <div className="flex items-start gap-4 mb-6">
               <div className="w-14 h-14 flex-shrink-0 flex items-center justify-center">
@@ -134,7 +152,7 @@ export default function EventDetails() {
               </div>
             </div>
             
-            <div className="space-y-4">
+            <div className="space-y-4 mb-6">
               <div className="flex items-center gap-4">
                 <CalendarIcon className="w-10 h-10 flex-shrink-0" animate={false} />
                 <div>
@@ -159,14 +177,28 @@ export default function EventDetails() {
               </div>
             </div>
 
+            {/* Embedded Map */}
+            <div className="rounded-xl overflow-hidden border border-earth-gold/20 mb-4">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3857.246477076!2d121.04341!3d14.81528!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397ac8f0c1a1a1a%3A0x1234567890abcdef!2sVilla%20Belissa%2C%20San%20Jose%20Del%20Monte!5e0!3m2!1sen!2sph!4v1700000000000"
+                width="100%"
+                height="200"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="grayscale hover:grayscale-0 transition-all duration-500"
+              />
+            </div>
+
             <motion.a
-              href="https://maps.google.com/?q=Villa+Belissa+San+Jose+Del+Monte+Bulacan"
+              href="https://www.google.com/maps/search/Villa+Belissa+San+Jose+Del+Monte+Bulacan"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 mt-6 text-earth-gold hover:text-earth-gold-light transition-colors font-body"
+              className="inline-flex items-center gap-2 text-earth-gold hover:text-earth-gold-light transition-colors font-body"
               whileHover={{ x: 5 }}
             >
-              <span>Get Directions</span>
+              <span>Open in Google Maps</span>
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>

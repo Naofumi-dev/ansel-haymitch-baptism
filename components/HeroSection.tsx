@@ -82,7 +82,7 @@ export default function HeroSection() {
           <div className="photo-frame w-36 h-36 sm:w-44 sm:h-44 glow-gold">
             <Image
               src="/images/ansel17.jpg"
-              alt="Baby Ansel"
+              alt="Baby Ansel Haymitch"
               width={176}
               height={176}
               className="w-full h-full object-cover"
@@ -102,6 +102,7 @@ export default function HeroSection() {
           <h1 className="font-script text-5xl sm:text-7xl lg:text-8xl text-gradient-gold mb-2">
             Ansel Haymitch
           </h1>
+          <p className="font-display text-lg text-earth-sand/70 mb-1">M. Vivas</p>
           <p className="font-display text-xl sm:text-2xl text-earth-cream/80 italic">
             and I&apos;m inviting you to my Baptism!
           </p>
@@ -132,7 +133,7 @@ export default function HeroSection() {
             <span className="font-display text-earth-gold text-sm tracking-widest uppercase">Save the Date</span>
           </div>
           <p className="font-display text-2xl sm:text-3xl text-earth-cream">
-            Sunday, February 15, 2026
+            Saturday, February 15, 2026
           </p>
           <p className="font-body text-earth-sand mt-1">
             at 11:00 in the morning

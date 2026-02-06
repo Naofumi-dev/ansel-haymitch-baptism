@@ -3,11 +3,14 @@
 import { motion } from 'framer-motion'
 import { CrossIcon, HeartIcon } from './Icons3D'
 
-const godparents = [
-  { name: 'Ninong Name', role: 'Godfather', relation: 'Uncle' },
-  { name: 'Ninang Name', role: 'Godmother', relation: 'Auntie' },
-  { name: 'Ninong Name', role: 'Godfather', relation: 'Family Friend' },
-  { name: 'Ninang Name', role: 'Godmother', relation: 'Cousin' },
+const ninangs = [
+  'Jeng', 'Jersey', 'Dee', 'Dennise', 'Angelica', 
+  'Mariz', 'Sheine', 'Dessa', 'Ria', 'Rica'
+]
+
+const ninongs = [
+  'Jared', 'Justin', 'Royhette', 'Renzo', 'Jedel', 
+  'Jun', 'Karl', 'Jayson', 'Niño', 'Ryan', 'Rupert'
 ]
 
 export default function Godparents() {
@@ -33,36 +36,61 @@ export default function Godparents() {
           </p>
         </motion.div>
 
-        {/* Godparents grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {godparents.map((person, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -5 }}
-              className="glass-card p-6 text-center"
-            >
-              {/* Avatar placeholder */}
-              <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-earth-sand to-earth-caramel flex items-center justify-center">
-                <span className="font-display text-2xl text-brand-dark">
-                  {person.name.split(' ').map(n => n[0]).join('')}
-                </span>
-              </div>
-              
-              <h3 className="font-display text-lg text-earth-cream mb-1">
-                {person.name}
-              </h3>
-              <p className="font-body text-earth-gold text-sm mb-1">
-                {person.role}
-              </p>
-              <p className="font-body text-earth-sand/60 text-xs">
-                {person.relation}
-              </p>
-            </motion.div>
-          ))}
+        {/* Godparents sections */}
+        <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+          {/* Ninangs */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="glass-card p-6 sm:p-8"
+          >
+            <h3 className="font-display text-2xl text-earth-gold text-center mb-6">
+              👸 My Ninangs
+            </h3>
+            <div className="grid grid-cols-2 gap-3">
+              {ninangs.map((name, index) => (
+                <motion.div
+                  key={name}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.05 }}
+                  className="bg-earth-brown/20 rounded-xl p-3 text-center border border-earth-gold/10 hover:border-earth-gold/30 transition-colors"
+                >
+                  <span className="font-body text-earth-cream">{name}</span>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Ninongs */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="glass-card p-6 sm:p-8"
+          >
+            <h3 className="font-display text-2xl text-earth-gold text-center mb-6">
+              🤴 My Ninongs
+            </h3>
+            <div className="grid grid-cols-2 gap-3">
+              {ninongs.map((name, index) => (
+                <motion.div
+                  key={name}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.05 }}
+                  className="bg-earth-brown/20 rounded-xl p-3 text-center border border-earth-gold/10 hover:border-earth-gold/30 transition-colors"
+                >
+                  <span className="font-body text-earth-cream">{name}</span>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </div>
 
         {/* Message from Ansel */}

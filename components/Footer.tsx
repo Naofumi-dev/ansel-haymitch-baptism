@@ -67,7 +67,7 @@ export default function Footer() {
         >
           <span className="font-body text-earth-sand/50 text-sm">With love,</span>
           <HeartIcon className="w-5 h-5" />
-          <span className="font-display text-earth-cream">The Mendoza Family</span>
+          <span className="font-display text-earth-cream">The Vivas Family</span>
         </motion.div>
 
         {/* Divider */}
@@ -75,7 +75,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <p className="font-body text-earth-sand/40 text-xs">
-          © 2026 Ansel Haymitch&apos;s Baptism • Made with 💛
+          © 2026 Ansel Haymitch M. Vivas&apos; Baptism • Made with 💛
         </p>
       </div>
     </footer>
