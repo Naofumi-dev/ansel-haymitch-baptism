@@ -4,8 +4,8 @@ import { motion } from 'framer-motion'
 import { GiftIcon, HeartIcon } from './Icons3D'
 
 const giftSuggestions = [
-  { emoji: '🍼', name: 'Milk', description: 'Formula or baby milk' },
-  { emoji: '👶', name: 'Diapers', description: 'Any size welcome!' },
+  { emoji: '🍼', name: 'Milk', description: 'Lactum 1-3 years old' },
+  { emoji: '👶', name: 'Diapers', description: 'Size: Large' },
   { emoji: '👕', name: 'Clothes', description: 'Baby outfits & onesies' },
   { emoji: '🧸', name: 'Toys', description: 'Educational or plush toys' },
 ]
@@ -52,7 +52,7 @@ export default function GiftMessage() {
               >
                 <span className="text-4xl mb-2 block">{gift.emoji}</span>
                 <h4 className="font-display text-earth-cream text-lg mb-1">{gift.name}</h4>
-                <p className="font-body text-earth-sand/60 text-xs">{gift.description}</p>
+                <p className="font-body text-earth-gold text-xs font-medium">{gift.description}</p>
               </motion.div>
             ))}
           </div>
