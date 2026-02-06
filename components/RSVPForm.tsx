@@ -132,9 +132,17 @@ export default function RSVPForm() {
           <h2 className="font-script text-4xl sm:text-5xl text-gradient-gold mb-4">
             Will You Come?
           </h2>
-          <p className="font-body text-earth-cream/70 text-lg">
+          <p className="font-body text-earth-cream/70 text-lg mb-4">
             &ldquo;Please tell me if you can make it! I&apos;ll be counting the days!&rdquo;
           </p>
+          
+          {/* 50 Pax Limit Notice */}
+          <div className="inline-flex items-center gap-2 bg-earth-gold/20 border border-earth-gold/40 rounded-full px-4 py-2">
+            <span className="text-lg">👥</span>
+            <span className="font-body text-earth-cream text-sm">
+              Limited to <strong className="text-earth-gold">50 guests</strong> only
+            </span>
+          </div>
         </motion.div>
 
         {/* Form */}
@@ -206,9 +214,9 @@ export default function RSVPForm() {
             </label>
             <div className="flex gap-3 flex-wrap">
               {[
-                { value: 'yes', label: 'Yes, I\'ll be there!', emoji: '🎉' },
+                { value: 'yes', label: "Yes, I'll be there!", emoji: '🎉' },
                 { value: 'maybe', label: 'Maybe...', emoji: '🤔' },
-                { value: 'no', label: 'Sorry, I can\'t', emoji: '😢' },
+                { value: 'no', label: "Sorry, I can't", emoji: '😢' },
               ].map((option) => (
                 <motion.button
                   key={option.value}
@@ -262,12 +270,15 @@ export default function RSVPForm() {
                   onChange={handleChange}
                   className="input-field appearance-none cursor-pointer"
                 >
-                  {[1, 2, 3, 4, 5, 6, 7, 8].map(num => (
+                  {[1, 2, 3, 4, 5].map(num => (
                     <option key={num} value={num} className="bg-brand-dark">
                       {num} {num === 1 ? 'guest' : 'guests'}
                     </option>
                   ))}
                 </select>
+                <p className="mt-2 text-xs text-earth-sand/60 font-body">
+                  ⚠️ Please limit to 5 guests per family as we only have 50 slots
+                </p>
               </motion.div>
             )}
           </AnimatePresence>
