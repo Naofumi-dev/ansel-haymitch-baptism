@@ -3,6 +3,13 @@
 import { motion } from 'framer-motion'
 import { GiftIcon, HeartIcon } from './Icons3D'
 
+const giftSuggestions = [
+  { emoji: '🍼', name: 'Milk', description: 'Formula or baby milk' },
+  { emoji: '👶', name: 'Diapers', description: 'Any size welcome!' },
+  { emoji: '👕', name: 'Clothes', description: 'Baby outfits & onesies' },
+  { emoji: '🧸', name: 'Toys', description: 'Educational or plush toys' },
+]
+
 export default function GiftMessage() {
   return (
     <section className="relative py-20 overflow-hidden">
@@ -22,15 +29,32 @@ export default function GiftMessage() {
             A Little Note About Gifts
           </h2>
           
-          <div className="space-y-4 font-body text-earth-cream/80 text-lg leading-relaxed">
+          <div className="space-y-4 font-body text-earth-cream/80 text-lg leading-relaxed mb-8">
             <p>
               &ldquo;Mommy and Daddy say the best gift is your presence on my special day!&rdquo;
             </p>
             <p className="text-earth-sand/70">
-              But if you wish to bless me with something extra, 
-              monetary gifts would help with my future needs. 
-              Thank you for your love and generosity!
+              But if you wish to bless me with something, here are some things I could use:
             </p>
+          </div>
+
+          {/* Gift suggestions grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+            {giftSuggestions.map((gift, index) => (
+              <motion.div
+                key={gift.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ scale: 1.05, y: -5 }}
+                className="bg-earth-brown/30 rounded-2xl p-4 border border-earth-gold/20 hover:border-earth-gold/40 transition-all"
+              >
+                <span className="text-4xl mb-2 block">{gift.emoji}</span>
+                <h4 className="font-display text-earth-cream text-lg mb-1">{gift.name}</h4>
+                <p className="font-body text-earth-sand/60 text-xs">{gift.description}</p>
+              </motion.div>
+            ))}
           </div>
 
           {/* Decorative divider */}
@@ -40,14 +64,7 @@ export default function GiftMessage() {
             <div className="w-16 h-px bg-earth-gold/30" />
           </div>
 
-          {/* GCash info (optional) */}
-          <div className="bg-earth-brown/20 rounded-xl p-6 border border-earth-gold/20">
-            <p className="font-body text-earth-sand/60 text-sm mb-2">For monetary gifts:</p>
-            <p className="font-display text-earth-cream text-lg">GCash: 0917-XXX-XXXX</p>
-            <p className="font-body text-earth-sand/60 text-sm mt-1">Account Name: Parent Name</p>
-          </div>
-
-          <p className="font-body text-earth-sand/50 text-sm mt-6 italic">
+          <p className="font-body text-earth-sand/50 text-sm italic">
             Your love and prayers mean the world to us 💛
           </p>
         </motion.div>

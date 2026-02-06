@@ -8,19 +8,18 @@ const eventDetails = {
     title: "My Christening Ceremony",
     message: "This is where I'll receive God's blessing!",
     time: "11:00 AM",
-    venue: "Parish of the Immaculate Heart of Mary",
-    address: "Brgy. Muzon, San Jose Del Monte, Bulacan",
-    mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3857.3!2d121.0453!3d14.8147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397ac8f1b0f3c1d%3A0x1234567890abcdef!2sParish%20of%20the%20Immaculate%20Heart%20of%20Mary!5e0!3m2!1sen!2sph!4v1234567890",
-    mapLink: "https://maps.app.goo.gl/immaculateheartmarymuzon"
+    venue: "Our Lady of La Salette Quasi-Parish",
+    subtitle: "Diocese of Malolos",
+    address: "San Jose Del Monte, Bulacan",
+    mapLink: "https://maps.app.goo.gl/YfEx2mP7mdqYerwB7"
   },
   reception: {
     title: "Let's Celebrate Together!",
     message: "After the ceremony, let's have fun and feast!",
     time: "12:30 PM onwards",
-    venue: "Vivas Residence",
-    address: "Block 5 Lot 15, Villa Belissa, San Jose Del Monte, Bulacan",
-    mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3857.3!2d121.0453!3d14.8147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397ac8f1b0f3c1d%3A0x1234567890abcdef!2sVilla%20Belissa!5e0!3m2!1sen!2sph!4v1234567890",
-    mapLink: "https://maps.app.goo.gl/villabelissa"
+    venue: "3M's Garden Resort and Pavilion",
+    address: "San Jose Del Monte, Bulacan",
+    mapLink: "https://maps.app.goo.gl/AEu4XczP4NZ4nQbe9"
   }
 }
 
@@ -95,6 +94,9 @@ export default function EventDetails() {
                   <p className="font-display text-earth-cream text-lg">
                     {eventDetails.ceremony.venue}
                   </p>
+                  <p className="font-body text-earth-gold/80 text-sm">
+                    {eventDetails.ceremony.subtitle}
+                  </p>
                   <p className="font-body text-earth-sand/70 text-sm">
                     {eventDetails.ceremony.address}
                   </p>
@@ -102,30 +104,34 @@ export default function EventDetails() {
               </div>
             </div>
 
-            {/* Embedded Map */}
+            {/* Embedded Google Map */}
             <div className="rounded-xl overflow-hidden border border-earth-gold/20 mb-4">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3857.246477076!2d121.04341!3d14.81528!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397ac8f0c1a1a1a%3A0x1234567890abcdef!2sParish%20of%20the%20Immaculate%20Heart%20of%20Mary%2C%20Muzon!5e0!3m2!1sen!2sph!4v1700000000000"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3857.1!2d121.0453!3d14.8147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397a9e5a4a5a5a5%3A0x1234567890abcdef!2sOur%20Lady%20of%20La%20Salette%20Quasi-Parish!5e0!3m2!1sen!2sph!4v1700000000000!5m2!1sen!2sph"
                 width="100%"
                 height="200"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                className="grayscale hover:grayscale-0 transition-all duration-500"
+                className="grayscale-[50%] hover:grayscale-0 transition-all duration-500"
               />
             </div>
 
             <motion.a
-              href="https://www.google.com/maps/search/Parish+of+the+Immaculate+Heart+of+Mary+Muzon+San+Jose+Del+Monte+Bulacan"
+              href={eventDetails.ceremony.mapLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-earth-gold hover:text-earth-gold-light transition-colors font-body"
-              whileHover={{ x: 5 }}
+              className="inline-flex items-center gap-2 bg-earth-brown/30 hover:bg-earth-brown/50 text-earth-gold px-4 py-2 rounded-full transition-colors font-body text-sm"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              </svg>
               <span>Open in Google Maps</span>
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
             </motion.a>
           </motion.div>
@@ -177,30 +183,34 @@ export default function EventDetails() {
               </div>
             </div>
 
-            {/* Embedded Map */}
+            {/* Embedded Google Map */}
             <div className="rounded-xl overflow-hidden border border-earth-gold/20 mb-4">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3857.246477076!2d121.04341!3d14.81528!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397ac8f0c1a1a1a%3A0x1234567890abcdef!2sVilla%20Belissa%2C%20San%20Jose%20Del%20Monte!5e0!3m2!1sen!2sph!4v1700000000000"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3857.1!2d121.0453!3d14.8147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397a9e5a4a5a5a5%3A0x1234567890abcdef!2s3M%27s%20Garden%20Resort%20and%20Pavilion!5e0!3m2!1sen!2sph!4v1700000000000!5m2!1sen!2sph"
                 width="100%"
                 height="200"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                className="grayscale hover:grayscale-0 transition-all duration-500"
+                className="grayscale-[50%] hover:grayscale-0 transition-all duration-500"
               />
             </div>
 
             <motion.a
-              href="https://www.google.com/maps/search/Villa+Belissa+San+Jose+Del+Monte+Bulacan"
+              href={eventDetails.reception.mapLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-earth-gold hover:text-earth-gold-light transition-colors font-body"
-              whileHover={{ x: 5 }}
+              className="inline-flex items-center gap-2 bg-earth-brown/30 hover:bg-earth-brown/50 text-earth-gold px-4 py-2 rounded-full transition-colors font-body text-sm"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              </svg>
               <span>Open in Google Maps</span>
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
             </motion.a>
           </motion.div>
