@@ -133,7 +133,7 @@ export default function HeroSection() {
             <span className="font-display text-earth-gold text-sm tracking-widest uppercase">Save the Date</span>
           </div>
           <p className="font-display text-2xl sm:text-3xl text-earth-cream">
-            Saturday, February 15, 2026
+            Sunday, February 15, 2026
           </p>
           <p className="font-body text-earth-sand mt-1">
             at 11:00 in the morning

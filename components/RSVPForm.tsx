@@ -78,7 +78,32 @@ export default function RSVPForm() {
     }
   }
 
+  // Success message content based on attendance
+  const getSuccessContent = () => {
+    if (formData.attending === 'yes') {
+      return {
+        title: "Yay! Thank You!",
+        message: "I'm so happy you're coming! Mommy and Daddy will send you more details soon. Can't wait to see you!",
+        icon: <DoveIcon className="w-20 h-20 mx-auto mb-6" />
+      }
+    } else if (formData.attending === 'no') {
+      return {
+        title: "Thank You!",
+        message: "I understand you can't make it. We'll miss you! Thank you for letting us know. You'll be in our thoughts and prayers.",
+        icon: <HeartIcon className="w-20 h-20 mx-auto mb-6" />
+      }
+    } else {
+      return {
+        title: "Thank You!",
+        message: "Thanks for letting us know! We hope you can make it. Mommy and Daddy will send you more details soon.",
+        icon: <DoveIcon className="w-20 h-20 mx-auto mb-6" />
+      }
+    }
+  }
+
   if (isSubmitted) {
+    const successContent = getSuccessContent()
+    
     return (
       <section id="rsvp" className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-brand-dark via-brand-medium to-brand-dark" />
@@ -89,12 +114,12 @@ export default function RSVPForm() {
           className="relative z-10 max-w-lg mx-auto px-4 text-center"
         >
           <div className="glass-card-light p-10">
-            <DoveIcon className="w-20 h-20 mx-auto mb-6" />
+            {successContent.icon}
             <h3 className="font-script text-4xl text-earth-brown mb-4">
-              Yay! Thank You!
+              {successContent.title}
             </h3>
             <p className="font-body text-brand-dark/80 text-lg mb-6">
-              I&apos;m so happy you&apos;re coming! Mommy and Daddy will send you more details soon. Can&apos;t wait to see you!
+              {successContent.message}
             </p>
             <HeartIcon className="w-12 h-12 mx-auto" />
             <motion.button
