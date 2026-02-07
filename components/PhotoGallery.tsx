@@ -5,19 +5,30 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import { BabyIcon } from './Icons3D'
 
+// Rearranged photos for visual variety - mix of expressions and poses
 const photos = [
-  { src: '/images/ansel1.jpg', caption: 'My first smile!' },
-  { src: '/images/ansel2.jpg', caption: 'Naptime is the best' },
-  { src: '/images/ansel3.jpg', caption: 'Just chilling' },
-  { src: '/images/ansel4.jpg', caption: 'With my favorite toy' },
-  { src: '/images/ansel5.jpg', caption: 'Happy baby!' },
-  { src: '/images/ansel6.jpg', caption: 'Exploring the world' },
-  { src: '/images/ansel7.jpg', caption: 'Cozy moments' },
-  { src: '/images/ansel8.jpg', caption: 'Bath time fun' },
-  { src: '/images/ansel9.jpg', caption: 'Sleepy head' },
-  { src: '/images/ansel10.jpg', caption: 'Growing so fast!' },
-  { src: '/images/ansel11.jpg', caption: 'Curious little one' },
+  { src: '/images/ansel21.jpg', caption: 'My biggest smile!' },
+  { src: '/images/ansel17.jpg', caption: 'Hello world!' },
+  { src: '/images/ansel22.jpg', caption: 'So happy today!' },
+  { src: '/images/ansel8.jpg', caption: 'Cozy moments' },
+  { src: '/images/ansel1.jpg', caption: 'My first photo' },
   { src: '/images/ansel12.jpg', caption: 'Sweet dreams' },
+  { src: '/images/ansel3.jpg', caption: 'Just chilling' },
+  { src: '/images/ansel9.jpg', caption: 'Sleepy head' },
+  { src: '/images/ansel5.jpg', caption: 'Happy baby!' },
+  { src: '/images/ansel14.jpg', caption: 'Curious little one' },
+  { src: '/images/ansel2.jpg', caption: 'Naptime is the best' },
+  { src: '/images/ansel18.jpg', caption: 'Growing so fast!' },
+  { src: '/images/ansel6.jpg', caption: 'Exploring the world' },
+  { src: '/images/ansel11.jpg', caption: 'Playtime!' },
+  { src: '/images/ansel4.jpg', caption: 'With my favorite toy' },
+  { src: '/images/ansel15.jpg', caption: 'Little angel' },
+  { src: '/images/ansel7.jpg', caption: 'Adorable me' },
+  { src: '/images/ansel19.jpg', caption: 'Mommy loves me' },
+  { src: '/images/ansel10.jpg', caption: 'Bath time fun' },
+  { src: '/images/ansel16.jpg', caption: 'Peaceful moments' },
+  { src: '/images/ansel13.jpg', caption: 'So blessed' },
+  { src: '/images/ansel20.jpg', caption: 'Bundle of joy' },
 ]
 
 export default function PhotoGallery() {
@@ -53,7 +64,7 @@ export default function PhotoGallery() {
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.05 }}
+              transition={{ duration: 0.4, delay: index * 0.03 }}
               className="relative group cursor-pointer"
               onClick={() => setSelectedPhoto(index)}
             >
